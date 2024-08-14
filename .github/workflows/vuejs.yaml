@@ -1,26 +1,20 @@
 name: Deploy Vue 3 site to Pages
 
 on:
-  # 当推送到默认分支时运行
   push:
     branches: ["main"]
-
-  # 允许从 Actions 标签页手动运行此工作流
   workflow_dispatch:
 
-# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 仅允许一个并发部署，跳过正在进行的运行和最新排队之间排队的运行
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # 构建任务
   build:
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +25,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -44,7 +40,6 @@ jobs:
         with:
           path: ./dist
 
-  # 部署任务
   deploy:
     environment:
       name: github-pages
