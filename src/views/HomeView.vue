@@ -66,6 +66,10 @@
     transform: translateX(0);
   }
 }
+*::selection {
+  background-color: white;
+  color: black;
+}
 #homeview-container {
   background-color: black;
   min-height: calc(100vh - 80px);
