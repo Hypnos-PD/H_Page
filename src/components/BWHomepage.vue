@@ -170,9 +170,9 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import HomeContent from "./HomeContent.vue";
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import HomeContent from './HomeContent.vue';
 import {
   BookIcon,
   UserIcon,
@@ -182,65 +182,79 @@ import {
   TwitterIcon,
   LinkedinIcon,
   ArrowUpCircleIcon,
-} from "lucide-vue-next";
+} from 'lucide-vue-next';
 
-const activeSection = ref("home"); // 当前激活的部分
-const customCursor = ref(null); // 自定义光标引用
+// 定义接口或类型
+interface NavLink {
+  name: string;
+  icon: any; // 可以更具体地声明类型，例如定义为 JSX.Element
+}
+
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: any; // 同上
+}
+
+const activeSection = ref<string>('home'); // 当前激活的部分
+const customCursor = ref<HTMLDivElement | null>(null); // 自定义光标引用
 
 // 导航栏链接和对应的图标
-const navLinks = [
-  { name: "about", icon: UserIcon },
-  { name: "projects", icon: BriefcaseIcon },
-  { name: "contact", icon: MailIcon },
+const navLinks: NavLink[] = [
+  { name: 'about', icon: UserIcon },
+  { name: 'projects', icon: BriefcaseIcon },
+  { name: 'contact', icon: MailIcon },
 ];
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
+const scrollToTop = (): void => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 // 项目列表
 const projects = [
   {
     id: 1,
-    title: "無",
-    description: "暂时没有很好的项目",
-    image: "/placeholder.svg?height=200&width=300",
+    title: '無',
+    description: '暂时没有很好的项目',
+    image: '/placeholder.svg?height=200&width=300',
   },
 ];
 
 // 社交链接列表
-const socialLinks = [
-  { name: "Email", url: "mailto://hp@hypd.asia", icon: MailIcon },
-  { name: "GitHub", url: "https://github.com/Hypnos-PD", icon: GithubIcon },
-  { name: "Twitter", url: "https://twitter.com/HypnosPD", icon: TwitterIcon },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/hypnos-p-190368323",
-    icon: LinkedinIcon,
-  },
+const socialLinks: SocialLink[] = [
+  { name: 'Email', url: 'mailto://hp@hypd.asia', icon: MailIcon },
+  { name: 'GitHub', url: 'https://github.com/Hypnos-PD', icon: GithubIcon },
+  { name: 'Twitter', url: 'https://twitter.com/HypnosPD', icon: TwitterIcon },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/hypnos-p-190368323', icon: LinkedinIcon },
 ];
 
-const beforeEnter = (el) => {
-  el.style.transform = "translateX(-100%)";
-  el.style.opacity = 0;
+// 过渡动画处理
+const beforeEnter = (el: Element): void => {
+  const element = el as HTMLElement; // 使用类型断言
+  element.style.transform = 'translateX(-100%)';
+  element.style.opacity = '0';
 };
 
-const enter = (el, done) => {
-  el.offsetHeight; // trigger reflow
-  el.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-  el.style.transform = "translateX(0)";
-  el.style.opacity = 1;
+const enter = (el: Element, done: () => void): void => {
+  const element = el as HTMLElement; // 使用类型断言
+  element.offsetHeight; // trigger reflow
+  element.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+  element.style.transform = 'translateX(0)';
+  element.style.opacity = '1';
   done();
 };
 
-const leave = (el, done) => {
-  el.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-  el.style.transform = "translateX(100%)";
-  el.style.opacity = 0;
+const leave = (el: Element, done: () => void): void => {
+  const element = el as HTMLElement; // 使用类型断言
+  element.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+  element.style.transform = 'translateX(100%)';
+  element.style.opacity = '0';
   done();
 };
+
 
 // 鼠标移动时自定义光标跟随
-const moveCursor = (e) => {
+const moveCursor = (e: MouseEvent): void => {
   if (customCursor.value) {
     customCursor.value.style.left = `${e.clientX}px`;
     customCursor.value.style.top = `${e.clientY}px`;
@@ -248,33 +262,34 @@ const moveCursor = (e) => {
 };
 
 // 鼠标按下时缩小光标
-const shrinkCursor = () => {
+const shrinkCursor = (): void => {
   if (customCursor.value) {
-    customCursor.value.classList.add("cursor-shrink");
+    customCursor.value.classList.add('cursor-shrink');
   }
 };
 
 // 鼠标释放时恢复光标大小
-const expandCursor = () => {
+const expandCursor = (): void => {
   if (customCursor.value) {
-    customCursor.value.classList.remove("cursor-shrink");
+    customCursor.value.classList.remove('cursor-shrink');
   }
 };
 
 // 组件挂载时添加事件监听
 onMounted(() => {
-  document.addEventListener("mousemove", moveCursor);
-  document.addEventListener("mousedown", shrinkCursor);
-  document.addEventListener("mouseup", expandCursor);
+  document.addEventListener('mousemove', moveCursor);
+  document.addEventListener('mousedown', shrinkCursor);
+  document.addEventListener('mouseup', expandCursor);
 });
 
 // 组件卸载时移除事件监听
 onUnmounted(() => {
-  document.removeEventListener("mousemove", moveCursor);
-  document.removeEventListener("mousedown", shrinkCursor);
-  document.removeEventListener("mouseup", expandCursor);
+  document.removeEventListener('mousemove', moveCursor);
+  document.removeEventListener('mousedown', shrinkCursor);
+  document.removeEventListener('mouseup', expandCursor);
 });
 </script>
+
 
 <style>
 @import url(../assets/css/font.css);
