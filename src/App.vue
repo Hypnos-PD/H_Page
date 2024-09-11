@@ -1,16 +1,12 @@
 <script setup lang="ts">
 
 
-import HomepageNav from './components/HomepageNav.vue';
-import PageContent from "./components/PageContent.vue";
+import BWHomepage from './components/BWHomepage.vue';
 
 </script>
 
 <template>
-<HomepageNav/>
-<div id="page-content-container">
-<PageContent/>
-</div>
+<BWHomepage/>
 </template>
 
 <style scoped>

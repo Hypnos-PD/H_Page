@@ -1,0 +1,24 @@
+/* 禁用默认光标 */
+.custom-cursor,.nav-icon:hover,a {
+  cursor: none;
+}
+
+/* 自定义光标样式 */
+.custom-cursor-element {
+  pointer-events: none;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  mix-blend-mode: difference;
+  transition: width 0.3s, height 0.3s;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+/* 光标缩小状态 */
+.cursor-shrink {
+  width: 30px;
+  height: 30px;
+}

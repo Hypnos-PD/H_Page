@@ -1,0 +1,10 @@
+/* 自定义选择文本的样式 */
+::selection {
+  background: white;
+  color: black;
+}
+
+::-moz-selection {
+  background: white;
+  color: black;
+}
