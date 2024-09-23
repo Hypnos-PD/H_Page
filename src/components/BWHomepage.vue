@@ -11,8 +11,10 @@
         >
           Hypnos PD
         </h1>
-        <p class="udmincho text-xl md:text-2xl text-gray-400">一個不知所雲之人</p>
-        <br><br>
+        <p class="udmincho text-xl md:text-2xl text-gray-400">
+          一個不知所雲之人
+        </p>
+        <br /><br />
         <p class="roman text-5xl text-gray-300 mb-6">
           Gehealden mín inwit, gehealdan Hyht.
         </p>
@@ -66,7 +68,9 @@
                 >
                   {{ project.title }}
                 </h3>
-                <p class="udmincho text-gray-400 mb-2">{{ project.description }}</p>
+                <p class="udmincho text-gray-400 mb-2">
+                  {{ project.description }}
+                </p>
                 <!-- 项目图片，懒加载 -->
                 <img
                   :src="project.image"
@@ -98,9 +102,10 @@
               コラボレーションのご提案や、ただの友好的な挨拶でも、お気軽にご連絡ください。
             </p>
             <p class="roman text-lg text-gray-300 mb-4">
-              Fühlen Sie sich frei, mich für Kooperationen oder einfach nur für ein freundliches Hallo zu kontaktieren.
+              Fühlen Sie sich frei, mich für Kooperationen oder einfach nur für
+              ein freundliches Hallo zu kontaktieren.
             </p>
-            <br>
+            <br />
             <!-- 社交链接，使用 v-for 渲染社交图标 -->
             <div class="flex space-x-6">
               <a
@@ -118,7 +123,10 @@
         </transition>
       </main>
       <footer>
-        <p class="text-gray-400">© 2024 <a class="text-white" href="https://hypd.asia">寐鱼游宫</a>. All rights reserved.</p>
+        <p class="text-gray-400">
+          © 2024 <a class="text-white" href="https://hypd.asia">寐鱼游宫</a>.
+          All rights reserved.
+        </p>
       </footer>
     </div>
 
@@ -171,8 +179,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import HomeContent from './HomeContent.vue';
+import { ref, onMounted, onUnmounted } from "vue";
+import HomeContent from "./HomeContent.vue";
 import {
   BookIcon,
   UserIcon,
@@ -182,7 +190,7 @@ import {
   TwitterIcon,
   LinkedinIcon,
   ArrowUpCircleIcon,
-} from 'lucide-vue-next';
+} from "lucide-vue-next";
 
 // 定义接口或类型
 interface NavLink {
@@ -196,100 +204,107 @@ interface SocialLink {
   icon: any; // 同上
 }
 
-const activeSection = ref<string>('home'); // 当前激活的部分
+const activeSection = ref<string>("home"); // 当前激活的部分
 const customCursor = ref<HTMLDivElement | null>(null); // 自定义光标引用
 
 // 导航栏链接和对应的图标
 const navLinks: NavLink[] = [
-  { name: 'about', icon: UserIcon },
-  { name: 'projects', icon: BriefcaseIcon },
-  { name: 'contact', icon: MailIcon },
+  { name: "about", icon: UserIcon },
+  { name: "projects", icon: BriefcaseIcon },
+  { name: "contact", icon: MailIcon },
 ];
 
 const scrollToTop = (): void => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 // 项目列表
 const projects = [
   {
     id: 1,
-    title: '無',
-    description: '暂时没有很好的项目',
-    image: '/placeholder.svg?height=200&width=300',
+    title: "無",
+    description: "暂时没有很好的项目",
+    image: "/placeholder.svg?height=200&width=300",
   },
 ];
 
 // 社交链接列表
 const socialLinks: SocialLink[] = [
-  { name: 'Email', url: 'mailto://hp@hypd.asia', icon: MailIcon },
-  { name: 'GitHub', url: 'https://github.com/Hypnos-PD', icon: GithubIcon },
-  { name: 'Twitter', url: 'https://twitter.com/HypnosPD', icon: TwitterIcon },
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/hypnos-p-190368323', icon: LinkedinIcon },
+  { name: "Email", url: "mailto://hp@hypd.asia", icon: MailIcon },
+  { name: "GitHub", url: "https://github.com/Hypnos-PD", icon: GithubIcon },
+  { name: "Twitter", url: "https://twitter.com/HypnosPD", icon: TwitterIcon },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/hypnos-p-190368323",
+    icon: LinkedinIcon,
+  },
 ];
 
 // 过渡动画处理
 const beforeEnter = (el: Element): void => {
   const element = el as HTMLElement; // 使用类型断言
-  element.style.transform = 'translateX(-100%)';
-  element.style.opacity = '0';
+  element.style.transform = "translateX(-100%)";
+  element.style.opacity = "0";
 };
 
 const enter = (el: Element, done: () => void): void => {
   const element = el as HTMLElement; // 使用类型断言
   element.offsetHeight; // trigger reflow
-  element.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-  element.style.transform = 'translateX(0)';
-  element.style.opacity = '1';
+  element.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+  element.style.transform = "translateX(0)";
+  element.style.opacity = "1";
   done();
 };
 
 const leave = (el: Element, done: () => void): void => {
   const element = el as HTMLElement; // 使用类型断言
-  element.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-  element.style.transform = 'translateX(100%)';
-  element.style.opacity = '0';
+  element.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+  element.style.transform = "translateX(100%)";
+  element.style.opacity = "0";
   done();
 };
 
+// 检查是否为移动设备
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-// 鼠标移动时自定义光标跟随
-const moveCursor = (e: MouseEvent): void => {
-  if (customCursor.value) {
-    customCursor.value.style.left = `${e.clientX}px`;
-    customCursor.value.style.top = `${e.clientY}px`;
-  }
-};
+if (!isMobile) {
+  // 鼠标移动时自定义光标跟随
+  const moveCursor = (e: MouseEvent): void => {
+    if (customCursor.value) {
+      customCursor.value.style.left = `${e.clientX}px`;
+      customCursor.value.style.top = `${e.clientY}px`;
+    }
+  };
 
-// 鼠标按下时缩小光标
-const shrinkCursor = (): void => {
-  if (customCursor.value) {
-    customCursor.value.classList.add('cursor-shrink');
-  }
-};
+  // 鼠标按下时缩小光标
+  const shrinkCursor = (): void => {
+    if (customCursor.value) {
+      customCursor.value.classList.add("cursor-shrink");
+    }
+  };
 
-// 鼠标释放时恢复光标大小
-const expandCursor = (): void => {
-  if (customCursor.value) {
-    customCursor.value.classList.remove('cursor-shrink');
-  }
-};
+  // 鼠标释放时恢复光标大小
+  const expandCursor = (): void => {
+    if (customCursor.value) {
+      customCursor.value.classList.remove("cursor-shrink");
+    }
+  };
 
-// 组件挂载时添加事件监听
-onMounted(() => {
-  document.addEventListener('mousemove', moveCursor);
-  document.addEventListener('mousedown', shrinkCursor);
-  document.addEventListener('mouseup', expandCursor);
-});
+  // 组件挂载时添加事件监听
+  onMounted(() => {
+    document.addEventListener("mousemove", moveCursor);
+    document.addEventListener("mousedown", shrinkCursor);
+    document.addEventListener("mouseup", expandCursor);
+  });
 
-// 组件卸载时移除事件监听
-onUnmounted(() => {
-  document.removeEventListener('mousemove', moveCursor);
-  document.removeEventListener('mousedown', shrinkCursor);
-  document.removeEventListener('mouseup', expandCursor);
-});
+  // 组件卸载时移除事件监听
+  onUnmounted(() => {
+    document.removeEventListener("mousemove", moveCursor);
+    document.removeEventListener("mousedown", shrinkCursor);
+    document.removeEventListener("mouseup", expandCursor);
+  });
+}
 </script>
-
 
 <style>
 @import url(../assets/css/font.css);

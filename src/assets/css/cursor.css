@@ -22,3 +22,10 @@
   width: 30px;
   height: 30px;
 }
+
+/* 移动设备上禁用自定义光标 */
+@media (hover: none) {
+  .custom-cursor-element {
+    display: none; /* 隐藏自定义光标 */
+  }
+}
