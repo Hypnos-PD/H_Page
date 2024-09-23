@@ -3,7 +3,7 @@
     class="min-h-screen bg-black text-white font-sans relative overflow-hidden custom-cursor flex"
   >
     <!-- 主内容区域 -->
-    <div class="container flex-grow p-8 md:p-16">
+    <div class="container flex-grow p-8 md:p-16 with-nav">
       <header>
         <!-- 标题和副标题 -->
         <h1

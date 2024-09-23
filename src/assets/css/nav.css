@@ -22,3 +22,9 @@
   width: 200%;
   height: 200%;
 }
+
+/* 有导航栏的主内容宽度 */
+.with-nav {
+  padding: 80px 80px 20px;
+  min-width: 250px;
+}
